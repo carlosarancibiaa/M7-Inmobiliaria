@@ -1,0 +1,132 @@
+[
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 1,
+        "fields": {
+            "username": "12345678-9",
+            "nombres": "Juan",
+            "apellidos": "Pérez",
+            "rut": "12345678-9",
+            "direccion": "Calle Principal 123",
+            "telefono": "987654321",
+            "tipo": "arrendador"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 2,
+        "fields": {
+            "username": "23456789-0",
+            "nombres": "María",
+            "apellidos": "Gómez",
+            "rut": "23456789-0",
+            "direccion": "Avenida del Sol 456",
+            "telefono": "876543210",
+            "tipo": "arrendatario"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 3,
+        "fields": {
+            "username": "34567890-1",
+            "nombres": "Pedro",
+            "apellidos": "López",
+            "rut": "34567890-1",
+            "direccion": "Calle Luna 789",
+            "telefono": "765432109",
+            "tipo": "arrendador"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 4,
+        "fields": {
+            "username": "45678901-2",
+            "nombres": "Luis",
+            "apellidos": "Martínez",
+            "rut": "45678901-2",
+            "direccion": "Calle Estrella 101",
+            "telefono": "654321098",
+            "tipo": "arrendatario"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 5,
+        "fields": {
+            "username": "56789012-3",
+            "nombres": "Sofía",
+            "apellidos": "Hernández",
+            "rut": "56789012-3",
+            "direccion": "Avenida Mar 202",
+            "telefono": "543210987",
+            "tipo": "arrendador"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 6,
+        "fields": {
+            "username": "67890123-4",
+            "nombres": "Carla",
+            "apellidos": "Fernández",
+            "rut": "67890123-4",
+            "direccion": "Calle del Río 303",
+            "telefono": "432109876",
+            "tipo": "arrendatario"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 7,
+        "fields": {
+            "username": "78901234-5",
+            "nombres": "Andrés",
+            "apellidos": "Rodríguez",
+            "rut": "78901234-5",
+            "direccion": "Calle del Bosque 404",
+            "telefono": "321098765",
+            "tipo": "arrendador"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 8,
+        "fields": {
+            "username": "89012345-6",
+            "nombres": "Verónica",
+            "apellidos": "Castro",
+            "rut": "89012345-6",
+            "direccion": "Avenida Primavera 505",
+            "telefono": "210987654",
+            "tipo": "arrendatario"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 9,
+        "fields": {
+            "username": "90123456-7",
+            "nombres": "Raúl",
+            "apellidos": "Castro",
+            "rut": "90123456-7",
+            "direccion": "Calle de la Nieve 606",
+            "telefono": "109876543",
+            "tipo": "arrendador"
+        }
+    },
+    {
+        "model": "app_inmobiliaria.usuario",
+        "pk": 10,
+        "fields": {
+            "username": "01234567-8",
+            "nombres": "Patricia",
+            "apellidos": "Paredes",
+            "rut": "01234567-8",
+            "direccion": "Calle del Sol 707",
+            "telefono": "987650432",
+            "tipo": "arrendatario"
+        }
+    }
+]

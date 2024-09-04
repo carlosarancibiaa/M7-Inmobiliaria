@@ -1,0 +1,96 @@
+ID: 5
+            Direccion: Camino al Campo 101
+            Comuna: Alto Hospicio
+            Region: I
+            Dueño: Sofía Hernández
+            Arrendatario: Carla Fernández
+            Disponible: False
+            
+ID: 10
+            Direccion: Camino del Bosque 606
+            Comuna: Pica
+            Region: I
+            Dueño: Patricia Paredes
+            Arrendatario: Juan Pérez
+            Disponible: True
+            
+ID: 9
+            Direccion: Calle Marítima 505
+            Comuna: Iquique
+            Region: I
+            Dueño: Raúl Castro
+            Arrendatario: None
+            Disponible: True
+            
+ID: 8
+            Direccion: Avenida del Sol 404
+            Comuna: Huara
+            Region: I
+            Dueño: Verónica Castro
+            Arrendatario: Raúl Castro
+            Disponible: False
+            
+ID: 6
+            Direccion: Sector Agrícola 202
+            Comuna: Camiña
+            Region: I
+            Dueño: Carla Fernández
+            Arrendatario: None
+            Disponible: True
+            
+ID: 12
+            Direccion: Suecia 1231
+            Comuna: Providencia
+            Region: RM
+            Dueño: Andrés Rodríguez
+            Arrendatario: None
+            Disponible: True
+            
+ID: 13
+            Direccion: Condell 451
+            Comuna: Providencia
+            Region: RM
+            Dueño: Carla Fernández
+            Arrendatario: None
+            Disponible: True
+            
+ID: 3
+            Direccion: Ruta 5 Sur Km 200
+            Comuna: Putre
+            Region: XV
+            Dueño: Pedro López
+            Arrendatario: None
+            Disponible: True
+            
+ID: 2
+            Direccion: Avenida Central 456
+            Comuna: Camarones
+            Region: XV
+            Dueño: María Gómez
+            Arrendatario: Pedro López
+            Disponible: False
+            
+ID: 1
+            Direccion: Calle del Mar 123
+            Comuna: Arica
+            Region: XV
+            Dueño: Juan Pérez
+            Arrendatario: None
+            Disponible: True
+            
+ID: 14
+            Direccion: Condell 451
+            Comuna: Arica
+            Region: XV
+            Dueño: Carla Fernández
+            Arrendatario: None
+            Disponible: True
+            
+ID: 4
+            Direccion: Calle de la Modernidad 789
+            Comuna: General Lagos
+            Region: XV
+            Dueño: Luis Martínez
+            Arrendatario: Sofía Hernández
+            Disponible: True
+            
