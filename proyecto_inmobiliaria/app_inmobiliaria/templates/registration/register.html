@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Django Registro {% endblock %}
+
+{% block contenido %}
+<h1>Crear una cuenta</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Crear</button>
+</form>
+{% endblock %}
