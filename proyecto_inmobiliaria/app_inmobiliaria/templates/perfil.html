@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container vh-75">
+  <h2>Bienvenido {{ user.nombres }}</h2>
+  {% if messages %}
+  <div class="alert alert-info">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="card d-inline-block col-3 mx-auto" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{user.nombres}} {{user.apellidos}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">{{ user.direccion }}</h6>
+        <p class="card-text">{{user.tipo|capfirst}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{user.email}}</li>
+        <li class="list-group-item">{{user.telefono}}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{% url 'actualizar' %}" class=" btn btn-primary">Actualizar datos</a>
+      </div>
+      <div class="list-group">
+        <p class="ps-1 pt-3 pb-0">Propiedades en oferta:</p>
+        {% for p in propiedades %}
+        <ul class="list-group mb-2">
+          <li class="list-group-item ">{{p.nombre}}</li>
+          <li class="list-group-item ">{{p.direccion}}</li>
+          <li class="list-group-item ">{{p.comuna.nombre}}</li>
+        </ul>
+        {% empty %}
+        <p class="ps-3 pt-0">Sin propiedades</p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="card d-inline-block col-3 mx-auto">
+      {% if agregar %}
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="py-2">
+          <label for="nombre">Nombre:</label>
+          <input name="nombre" type="text" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="direccion">Dirección:</label>
+          <input name="direccion" type="text" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="descripcion">Descripción:</label>
+          <input name="descripcion" type="text" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="metros_construidos">Metros Construidos:</label>
+          <input name="metros_construidos" type="number" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="metros_totales">Metros Totales:</label>
+          <input name="metros_totales" type="number" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="cant_estacionamientos">Estacionamientos:</label>
+          <input name="cant_estacionamientos" type="number" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="cant_habitaciones">Habitaciones:</label>
+          <input name="cant_habitaciones" type="number class=" form-control">
+        </div>
+        <div class="py-2">
+          <label for="cant_baños">Baños:</label>
+          <input name="cant_baños" type="number" class="form-control">
+        </div>
+        <div class="py-2">
+          <label for="comuna" class="form-label">Comuna:</label>
+          <select name="comuna" id="comuna_id" class="form-select">
+            {% for comuna in comunas %}
+            <option value="{{comuna.id}}">{{comuna.nombre}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="py-2">
+          <label for="tipo" class="form-label">Tipo:</label>
+          <select name="tipo" class="form-select" id="tipo">
+            <option value="arrendatario">Casa</option>
+            <option value="arrendador">Departamento</option>
+            <option value="arrendador">Parcela</option>
+          </select>
+        </div>
+        <div class="py-2">
+          <label for="precio">Precio:</label>
+          <input name="precio" type="number" class="form-control">
+        </div>
+        <div class="py-2">
+          <input name="dueño" type="hidden" value="{{user.rut}}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-info">Agregar Porpiedades</button>
+      </form>
+      {% else %}
+      <form action="" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-info m-3">Agregar Porpiedades</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

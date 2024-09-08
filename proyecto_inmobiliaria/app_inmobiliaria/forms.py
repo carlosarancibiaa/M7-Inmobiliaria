@@ -28,3 +28,16 @@ class FormRegistro(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+class FormActualizacion(forms.ModelForm):
+    
+    class Meta:
+        model = Usuario
+        fields = ['nombres', 'apellidos', 'direccion', 'telefono','email']
+        labels = {
+            'nombres': 'Nombres',
+            'apellidos': 'Apellidos',
+            'direccion': 'Direccion',
+            'telefono': 'Telefono',
+            'email': 'Correo electrónico',
+        }
