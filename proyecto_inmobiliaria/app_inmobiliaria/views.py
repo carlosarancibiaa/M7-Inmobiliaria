@@ -59,7 +59,8 @@ def perfil(request):
     else:
         agregar= False
         propiedades= request.user.propiedades.all()
-        return render(request, 'perfil.html', {'propiedades': propiedades,  'agregar':agregar})
+        propiedades_arrendadas = request.user.propiedades_arrendadas.all()
+        return render(request, 'perfil.html', {'propiedades': propiedades,  'agregar':agregar, 'propiedades_arrendadas': propiedades_arrendadas})
 
 @login_required
 def actualizar(request):

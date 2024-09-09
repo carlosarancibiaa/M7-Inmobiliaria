@@ -24,18 +24,32 @@
         <a href="{% url 'actualizar' %}" class=" btn btn-primary">Actualizar datos</a>
       </div>
       <div class="list-group">
-        <p class="ps-1 pt-3 pb-0">Propiedades en oferta:</p>
-        {% for p in propiedades %}
-        <ul class="list-group mb-2">
-          <li class="list-group-item ">{{p.nombre}}</li>
-          <li class="list-group-item ">{{p.direccion}}</li>
-          <li class="list-group-item ">{{p.comuna.nombre}}</li>
-        </ul>
-        {% empty %}
-        <p class="ps-3 pt-0">Sin propiedades</p>
-        {% endfor %}
+        {% if user.tipo == 'arrendador' %}
+          <p class="ps-1 pt-3 pb-0">Propiedades en oferta:</p>
+          {% for p in propiedades %}
+          <ul class="list-group mb-2">
+            <li class="list-group-item ">{{p.nombre}}</li>
+            <li class="list-group-item ">{{p.direccion}}</li>
+            <li class="list-group-item ">{{p.comuna.nombre}}</li>
+          </ul>
+          {% empty %}
+          <p class="ps-3 pt-0">Sin propiedades</p>
+          {% endfor %}
+        {% else %}
+          <p class="ps-1 pt-3 pb-0">Propiedades arrendadas:</p>
+          {% for p in propiedades_arrendadas %}
+          <ul class="list-group mb-2">
+            <li class="list-group-item ">{{p.nombre}}</li>
+            <li class="list-group-item ">{{p.direccion}}</li>
+            <li class="list-group-item ">{{p.comuna.nombre}}</li>
+          </ul>
+          {% empty %}
+          <p class="ps-3 pt-0">Sin arriendos</p>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
+    {% if propiedades %}
     <div class="card d-inline-block col-3 mx-auto">
       {% if agregar %}
       <form action="" method="POST">
@@ -95,14 +109,15 @@
         <div class="py-2">
           <input name="dueño" type="hidden" value="{{user.rut}}" class="form-control">
         </div>
-        <button type="submit" class="btn btn-info">Agregar Porpiedades</button>
+        <button type="submit" class="btn btn-info">Agregar Propiedades</button>
       </form>
       {% else %}
       <form action="" method="POST">
         {% csrf_token %}
-        <button type="submit" class="btn btn-info m-3">Agregar Porpiedades</button>
+        <button type="submit" class="btn btn-info m-3">Agregar Propiedades</button>
       </form>
       {% endif %}
+    {% endif %}
     </div>
   </div>
 </div>
