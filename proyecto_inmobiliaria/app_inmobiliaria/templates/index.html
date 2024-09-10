@@ -3,6 +3,9 @@
 {% block contenido %}
 <div class="container vh-100">
     <h1>index</h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'crear_propiedades' %}"  class="btn btn-primary">Crear Propiedades</a>
+    {% endif %}
 </div>
 
 {% endblock %}

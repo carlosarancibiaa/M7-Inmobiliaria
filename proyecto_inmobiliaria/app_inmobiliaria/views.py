@@ -76,3 +76,9 @@ def actualizar(request):
     else:
         form=FormActualizacion(instance=request.user)
     return render(request, 'actualizar.html', {'form': form})
+
+@login_required
+def crear_propiedades(request):
+    propiedades= request.user.propiedades.all()
+    print(propiedades)
+    return render(request, 'crear_propiedades.html')

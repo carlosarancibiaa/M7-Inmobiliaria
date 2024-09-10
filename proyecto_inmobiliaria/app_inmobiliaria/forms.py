@@ -1,4 +1,4 @@
-from .models import Usuario
+from .models import Usuario, Inmueble
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -40,4 +40,22 @@ class FormActualizacion(forms.ModelForm):
             'direccion': 'Direccion',
             'telefono': 'Telefono',
             'email': 'Correo electrónico',
+        }
+        
+class FormCreacionPropiedad(forms.ModelForm):
+    class Meta:
+        model = Inmueble
+        fields = ['nombre', 'descripcion', 'direccion', 'comuna', 'metros_construidos', 'metros_totales','cant_estacionamientos', 'cant_habitaciones', 'cant_baños', 'tipo', 'precio' ]
+        labels ={
+            'nombre': 'Nombre',
+            'descripcion': 'Descripcion',
+            'direccion': 'Direccion',
+            'comuna': 'Comuna',
+            'metros_construidos': 'Metros contruidos',
+            'metros_totales': 'Metros totales',
+            'cant_estacionamientos': 'Estacionamientos' ,
+            'cant_habitaciones': 'Habitaciones',
+            'cant_baños': 'Baños',
+            'tipo': 'Tipo',
+            'precio': 'Precio'    
         }
