@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container min-vh-100 mb-5 pd-5 mt-5 pt-5 table-responsive">
+
+    <!-- Template mostrado si se ha logeado un usuario de tipo arrendador -->
+
+    {% if user.tipo == 'arrendador' %}
+    <h2>Inmuebles Publicados</h2>
+    <table class="table pb-5">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Comuna</th>
+                <th scope="col">Metros construidos</th>
+                <th scope="col">Metros totales</th>
+                <th scope="col">Habitaciones</th>
+                <th scope="col">Baños</th>
+                <th scope="col">Estacionamientos</th>
+                <th scope="col">Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in inmuebles %}
+            {% if i.id == inmueble.id %}
+            <tr>
+                <form action="{% url 'actualizar_propiedades' %}" method="post">
+                    {% csrf_token %}
+                    <td>{{form.nombre}}</td>
+                    <td>{{form.tipo}}</td>
+                    <td>{{form.descripcion}}</td>
+                    <td>{{form.direccion}}</td>
+                    <td>{{form.comuna}}</td>
+                    <td>{{form.metros_construidos}}</td>
+                    <td>{{form.metros_totales}}</td>
+                    <td>{{form.cant_habitaciones}}</td>
+                    <td>{{form.cant_baños}}</td>
+                    <td>{{form.cant_estacionamientos}}</td>
+                    <td>{{form.precio}}</td>
+                    <td>
+                        <input type="hidden" value="{{i.id}}" name="id_confirmar">
+                        <button class="btn btn-success" type="submit">Confirmar</button>
+                    </td>
+                </form>
+            </tr>
+            {% else %}
+            <tr>
+                <td>{{i.nombre}}</td>
+                <td>{{i.tipo}}</td>
+                <td>{{i.descripcion}}</td>
+                <td>{{i.direccion}}</td>
+                <td>{{i.comuna.nombre}}</td>
+                <td>{{i.metros_construidos}}</td>
+                <td>{{i.metros_totales}}</td>
+                <td>{{i.cant_habitaciones}}</td>
+                <td>{{i.cant_baños}}</td>
+                <td>{{i.cant_estacionamientos}}</td>
+                <td>{{i.precio}}</td>
+                <td>
+                    <form action="{% url 'actualizar_propiedades' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{i.id}}" name="id_actualizar">
+                        <button class="btn btn-success" type="submit">Actualizar</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'propiedades' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{i.id}}" name="id_eliminar">
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+            {% empty %}
+            <tr>
+                <td>
+                    Sin Propiedades publicadas
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'crear_propiedades' %}" class="btn btn-primary">Crear Propiedades</a>
+    {% endif %}
+</div>
+{% endblock %}

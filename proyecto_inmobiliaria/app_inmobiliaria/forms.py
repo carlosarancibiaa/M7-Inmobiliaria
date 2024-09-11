@@ -1,4 +1,4 @@
-from .models import Usuario, Inmueble
+from .models import Usuario, Inmueble, Comuna
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
@@ -59,3 +59,5 @@ class FormCreacionPropiedad(forms.ModelForm):
             'tipo': 'Tipo',
             'precio': 'Precio'    
         }
+    tipo = forms.ChoiceField(choices=Inmueble.tipos_inmueble)
+    

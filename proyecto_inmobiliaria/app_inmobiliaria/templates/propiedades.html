@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="container min-vh-100 mb-5 pd-5 mt-5 pt-5">
+
+    <!-- Template mostrado si se ha logeado un usuario de tipo arrendador -->
+
+    {% if user.tipo == 'arrendador' %}
+    <h2>Inmuebles Publicados</h2>
+    <table class="table pb-5">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Comuna</th>
+                <th scope="col">Metros construidos</th>
+                <th scope="col">Metros totales</th>
+                <th scope="col">Habitaciones</th>
+                <th scope="col">Baños</th>
+                <th scope="col">Estacionamientos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in inmuebles %}
+            <tr>
+                <td>{{i.nombre}}</td>
+                <td>{{i.direccion}}</td>
+                <td>{{i.comuna.nombre}}</td>
+                <td>{{i.metros_construidos}}</td>
+                <td>{{i.metros_totales}}</td>
+                <td>{{i.cant_habitaciones}}</td>
+                <td>{{i.cant_baños}}</td>
+                <td>{{i.cant_estacionamientos}}</td>
+                <td>
+                    <form action="{% url 'actualizar_propiedades' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{i.id}}" name="id_actualizar">
+                        <button class="btn btn-success" type="submit">Actualizar</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{% url 'propiedades' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{i.id}}" name="id_eliminar">
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>
+                    Sin Propiedades publicadas
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'crear_propiedades' %}" class="btn btn-primary">Crear Propiedades</a>
+
+    <!-- TEMPLATE QUE SE MUESTRA A ARRENDATARIOS-->
+
+    {% else %}
+    <h2>Inmuebles Disponibles</h2>
+    <table class="table pb-5">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Comuna</th>
+                <th scope="col">Metros construidos</th>
+                <th scope="col">Metros totales</th>
+                <th scope="col">Habitaciones</th>
+                <th scope="col">Baños</th>
+                <th scope="col">Estacionamientos</th>
+                <th scope="col">Disponible</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in inmuebles %}
+            <tr>
+                <td>{{i.nombre}}</td>
+                <td>{{i.direccion}}</td>
+                <td>{{i.comuna.nombre}}</td>
+                <td>{{i.metros_construidos}}</td>
+                <td>{{i.metros_totales}}</td>
+                <td>{{i.cant_habitaciones}}</td>
+                <td>{{i.cant_baños}}</td>
+                <td>{{i.cant_estacionamientos}}</td>
+                {% if i.disponible %}
+                <td>Si</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+                <td>
+                    <form action="{% url 'propiedades' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{i.id}}" name="id_arrendar">
+                        <button class="btn btn-primary" type="submit">Arrendar</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>
+                    Sin Propiedades publicadas
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

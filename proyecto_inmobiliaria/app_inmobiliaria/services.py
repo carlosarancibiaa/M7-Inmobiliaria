@@ -30,8 +30,12 @@ def obtener_usuario(rut:str):
 def obtener_comunas():
     return Comuna.objects.all()
     
-def obtener_inmuebles():
-    return Inmueble.objects.all()
+def obtener_inmuebles(rut=None, disponible=None):
+    if rut is None and disponible is None:
+        return Inmueble.objects.all()
+    elif disponible is None:
+        return Inmueble.objects.filter(dueño=rut)
+    return Inmueble.objects.filter(disponible=disponible)
     
 
 def arrendar_inmueble(arrendatario:str, id_inmueble:int):
@@ -47,5 +51,3 @@ def eliminar_inmueble(id):
     except Exception as e:
         print(f'Error al eliminar inmueble: {e}')
         
-        
-        services.crear_inmueble('Casa Ariqueña', 'Tradicional y amplia casa en sector centrico de Aricxa ', 102,148, 2,4,2,'Condell 451', 1, 'casa', 470000, '67890123-4', True)

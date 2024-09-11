@@ -45,9 +45,7 @@ class Comuna(models.Model):
     region = models.CharField(max_length=50, null=False, choices=REGIONES_CHOICES)
     
     def __str__(self):
-        return f'''Nombre: {self.nombre}
-        Región: {self.region}
-        '''
+        return self.nombre
 
 class Inmueble(models.Model):
     tipos_inmueble = [
@@ -65,7 +63,7 @@ class Inmueble(models.Model):
     cant_baños = models.SmallIntegerField(null=False)
     direccion = models.CharField(max_length=255, null=False)
     comuna = models.ForeignKey('Comuna', on_delete=models.CASCADE, related_name='inmuebles', null=False)
-    tipo = models.CharField(choices=tipos_inmueble, default='casa')
+    tipo = models.CharField(choices=tipos_inmueble, default='casa', max_length=20)
     precio = models.IntegerField(null=False)
     dueño = models.ForeignKey('Usuario', on_delete=models.CASCADE, related_name='propiedades')
     disponible = models.BooleanField(default=True)
