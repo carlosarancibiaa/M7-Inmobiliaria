@@ -29,7 +29,7 @@ def obtener_usuario(rut:str):
 
 def obtener_comunas():
     return Comuna.objects.all()
-    
+
 def obtener_inmuebles(rut=None, disponible=None):
     if rut is None and disponible is None:
         return Inmueble.objects.all()

@@ -3,7 +3,7 @@
 <div class="container vh-75 mt-5 pt-5">
   <h2>Bienvenido {{ user.nombres }}</h2>
   {% if messages %}
-  <div class="alert alert-info">
+  <div class="alert alert-info" id="mensaje">
     {% for message in messages %}
     <div class="alert {{ message.tags }}">{{ message }}</div>
     {% endfor %}
@@ -36,13 +36,20 @@
           <p class="ps-3 pt-0">Sin propiedades</p>
           {% endfor %}
         {% else %}
-          <p class="ps-1 pt-3 pb-0">Propiedades arrendadas:</p>
+          <p class="ps-1 py-2 border-top mt-5 bg-success-subtle rounded">Propiedades arrendadas:</p>
           {% for p in propiedades_arrendadas %}
-          <ul class="list-group mb-2">
-            <li class="list-group-item ">{{p.nombre}}</li>
-            <li class="list-group-item ">{{p.direccion}}</li>
-            <li class="list-group-item ">{{p.comuna.nombre}}</li>
-          </ul>
+          <div class="my-3 border rounded p-1">
+            <ul class="list-group mb-2">
+              <li class="list-group-item ">{{p.nombre}}</li>
+              <li class="list-group-item ">{{p.direccion}}</li>
+              <li class="list-group-item ">{{p.comuna.nombre}}</li>
+            </ul>
+            <form action="{% url 'perfil' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="cancelar_arriendo" value="{{p.id}}">
+              <button class="btn  btn-primary">Cancelar Arriendo</button>
+            </form>
+          </div>
           {% empty %}
           <p class="ps-3 pt-0">Sin arriendos</p>
           {% endfor %}
@@ -50,7 +57,7 @@
       </div>
     </div>
     {% if propiedades %}
-    <div class="card d-inline-block col-3 mx-auto">
+    <div class="card d-inline-block col-3 mx-auto"style="width: 18rem;">
       {% if agregar %}
       <form action="" method="POST">
         {% csrf_token %}
@@ -121,4 +128,15 @@
     </div>
   </div>
 </div>
+
+<script>
+  // Espera 5 segundos y luego oculta el mensaje (5000 milisegundos)
+  setTimeout(function() {
+      var mensaje = document.getElementById('mensaje');
+      if (mensaje) {
+          mensaje.style.display = 'none';
+      }
+  }, 3000); // 5 segundos
+</script>
+
 {% endblock %}

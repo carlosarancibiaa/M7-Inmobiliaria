@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block contenido %}
-<div class="container min-vh-100 mb-5 pd-5 mt-5 pt-5">
+<div class="container min-vh-100 mb-5 pd-5 mt-5 pt-5 table-responsive">
 
     <!-- Template mostrado si se ha logeado un usuario de tipo arrendador -->
 
@@ -59,7 +59,36 @@
     <!-- TEMPLATE QUE SE MUESTRA A ARRENDATARIOS-->
 
     {% else %}
+    <div class="row bg-light my-3 py-3">
+        <div class="d-inline col">
+            <form action="{% url 'propiedades' %}" method="post">
+                {% csrf_token %}
+                <label class="form-label d-inline" for="filtro_region">Filtrar por región:</label>
+                <select class="form-select w-25 d-inline" name="filtro_region" id="id_region">
+                    <option value="" selected>Seleccione una región</option>
+                    {% for r in regiones %}
+                    <option value="{{r.region}}">{{r.region}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+        </div>
+        <div class="d-inline col">
+            <form action="{% url 'propiedades' %}" method="post">
+                {% csrf_token %}
+                <label class="form-label d-inline" for="filtro_comuna">Filtrar por comuna:</label>
+                <select class="form-select w-25 d-inline" name="filtro_comuna" id="id_comuna">
+                    <option value="" selected>Seleccione una comuna</option>
+                    {% for c in comunas %}
+                    <option value="{{c.id}}">{{c.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+        </div>
+    </div>
     <h2>Inmuebles Disponibles</h2>
+
     <table class="table pb-5">
         <thead>
             <tr>

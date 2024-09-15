@@ -4,7 +4,7 @@ from django.contrib.auth import login,  authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Comuna, Inmueble, Usuario
-from .services import crear_inmueble, obtener_inmuebles, arrendar_inmueble
+from .services import crear_inmueble, obtener_inmuebles, arrendar_inmueble, obtener_comunas
 
 # Create your views here.
 
@@ -27,12 +27,18 @@ def registro(request):
 
 @login_required
 def perfil(request):
+    a = request.POST.get('dueño')
     if request.method == 'POST':
-        agregar=True
+        if request.POST.get('cancelar_arriendo'):
+            print('holaaaas')
+            p = Inmueble.objects.get(id=request.POST.get('cancelar_arriendo'))
+            p.disponible=True
+            p.arrendatario=None
+            p.save()
+            return redirect('/profile')
         propiedades= request.user.propiedades.all()
+        agregar=True
         comunas = Comuna.objects.all()
-        print('primer post')
-        a = request.POST.get('dueño')
         if a is not None:
             print('segundo post')
             dueño = Usuario.objects.get(rut=request.POST.get('dueño'))
@@ -46,7 +52,7 @@ def perfil(request):
             cant_habitaciones=request.POST.get('cant_habitaciones'),
             cant_baños=request.POST.get('cant_baños'),
             direccion=request.POST.get('direccion'),
-            comuna_id=request.POST.get('comuna'),  # Asume que se envía el id de la comuna
+            comuna_id=request.POST.get('comuna'),
             tipo=request.POST.get('tipo'),
             precio=request.POST.get('precio'),
             dueño=dueño
@@ -90,7 +96,7 @@ def crear_propiedades(request):
                     inmueble.dueño = request.user
                     inmueble.save()
                     messages.success(request, 'Inmueble agregado correctamente.')
-                    return redirect('/')
+                    return redirect('/properties')
                 except Exception as e:
                     messages.error(request, f'Error al guardar la propiedad: {e}')
         else:
@@ -102,22 +108,29 @@ def crear_propiedades(request):
 
 @login_required
 def propiedades(request):
-    if request.method == 'POST' and request.POST.get('id_eliminar'):
-        Inmueble.objects.get(id=request.POST['id_eliminar']).delete()
-    if request.method == 'POST' and request.POST.get('id_arrendar'):
-        arrendar_inmueble(request.user.rut, request.POST['id_arrendar'])        
     if request.user.tipo == 'arrendador':
+        if request.method == 'POST' and request.POST.get('id_eliminar'):
+            Inmueble.objects.get(id=request.POST['id_eliminar']).delete()
         propiedades = obtener_inmuebles(rut=request.user.rut)
     else:
-        propiedades = obtener_inmuebles(disponible=True)
-    return render(request, 'propiedades.html', {'inmuebles': propiedades})
+        if request.method == 'POST' and request.POST.get('id_arrendar'):
+            propiedades = obtener_inmuebles(disponible=True)
+            arrendar_inmueble(request.user.rut, request.POST['id_arrendar'])     
+        elif request.method == 'POST' and request.POST.get('filtro_region'):
+            propiedades = Inmueble.objects.filter(comuna__region = request.POST['filtro_region'], disponible=True)
+        elif request.method == 'POST' and request.POST.get('filtro_comuna'):
+            propiedades = Inmueble.objects.filter(comuna = request.POST['filtro_comuna'], disponible=True)
+        else:
+            propiedades = obtener_inmuebles(disponible=True)
+    comunas = obtener_comunas()
+    regiones = Comuna.objects.values('region').distinct()
+    return render(request, 'propiedades.html', {'inmuebles': propiedades, 'comunas':comunas, 'regiones':regiones})
 
 @login_required
 def actualizar_propiedades(request):
     inmuebles = obtener_inmuebles(rut=request.user.rut)
     if request.method == 'POST'and request.POST.get('id_actualizar'):
         inmueble = Inmueble.objects.get(id=request.POST['id_actualizar'])
-        print('if uno')
         form = FormCreacionPropiedad()
         return render(request, 'actualizar_propiedades.html', {'inmueble': inmueble, 'inmuebles': inmuebles, 'form': form})
     elif request.method == 'POST'and request.POST['id_confirmar']:
@@ -125,7 +138,6 @@ def actualizar_propiedades(request):
         try:
             formulario = FormCreacionPropiedad(request.POST, instance=inmueble)
             if formulario.is_valid():
-                print('if dos')
                 formulario.save()
                 return redirect('properties')
             else:
